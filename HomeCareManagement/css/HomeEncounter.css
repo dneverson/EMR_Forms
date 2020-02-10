@@ -1,0 +1,113 @@
+.btn-grp{
+  vertical-align: text-bottom;
+}
+.btnRemove{
+  margin-left: 10px;
+}
+.container{
+  width: 90% !important;
+}
+.center{
+  text-align: center;
+  vertical-align: middle;
+}
+.checkbokList{
+  min-width: 290px;
+  padding: 0;
+  right: -1px;
+}
+.checkbokList li span, .checkbokList li input{
+  border-radius: 0;
+}
+.color-red{
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  color: #a94442;
+}
+.color-green{
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.cursor-locked{
+  cursor: not-allowed;
+}
+.dropdown-menu{
+  margin: 0;
+}
+footer{
+  color: #9e9e9e;
+  margin-top: 7em;
+  margin-bottom: 2em;
+}
+h1{
+  text-align: center;
+}
+h4{
+  text-align: center;
+}
+h3.inline{
+  margin-right: 20px;
+}
+.inline{
+  display: inline-block;
+}
+.input-group-normalize{
+  min-width:11em;
+  text-align:left;
+}
+input:read-only{
+  background-color: #fff !important;
+  cursor: default;
+}
+input[readOnly]{
+  background-color: #fff !important;
+  cursor: default;
+}
+input[type='checkbox']{
+  height: 26px;
+  margin-top: 3px !important;
+  width: 32px;
+}
+input[type='text']::-ms-clear{
+    display: none;
+    width : 0;
+    height: 0;
+}
+.largerCheckboxPadding {
+  padding: 0;
+}
+.row-locked{
+  background-color: #eee;
+}
+table{
+  border: #ccc 1px solid;
+  border-radius: 25px;
+}
+.textRed{
+  color: red;
+  font-weight: 900;
+}
+td{
+  border: none !important;
+}
+th{
+  border: #ccc 1px solid;
+  vertical-align: top !important;
+}
+.btn-save{
+  display: block;
+  position: relative;
+  top: 3px;
+  left: -13px;
+}
+.td-save{
+  display: block;
+  width: 0;
+  height: 0;
+  padding: 0 !important;
+}
+.th-save{
+  display: none;
+}
+}

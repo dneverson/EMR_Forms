@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<!--*************************************************
+*                 Quality Measures   		      			*
+*   		  30-SEP-2016, RWemlinger     							*
+*****************************************************
+* This form will be used to display measures not    *
+* being met for the patient.                				*
+**************************************************-->
+
+<!-- BEGIN HEAD -->
+<head>
+  <meta charset='UTF-8'>
+  <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE10,chrome=1">
+
+  <meta http-equiv="CACHE-CONTROL" content="NO-CACHE">
+  <meta http-equiv="PRAGMA" content="NO-CACHE">
+
+  <title>Quality Measures</title>
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="../../HtmlLibraries/bootstrap/3.1.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../HtmlLibraries/jquery/ui/1.10.1/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="../../HtmlLibraries/bootstrap/3.1.1/css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="../../HtmlLibraries/deprecated/bootstrap-vmctheme.css"/>
+  <link rel="stylesheet" href="../../HtmlLibraries/deprecated/toastr.min.css"/>
+
+  <!--GE scripts-->
+  <script src="../../HtmlLibraries/jquery/js/1.9.1/jquery.min.js"></script>
+  <script src="../../HtmlLibraries/jquery/ui/1.10.1/jquery-ui.min.js"></script>
+  <script src="../../HtmlLibraries/angularjs/1.3.4/angular.min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/angular-ui-router.min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/checklist-model.js"></script>
+  <script src="../../HtmlLibraries/deprecated/toastr.min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/bootstrap-v3.3.7-min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/ui-bootstrap-tpls-0.13.0.min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+  <script src="../../HtmlLibraries/deprecated/GE_EMR_MEL_interface.js"></script>
+
+	<!-- Quality Measures Script -->
+	<script language="javascript" src="./scripts/QualityMeasures_main_TEST.js"></script>
+	<!-- Health Maintenance Script -->
+	<script language="javascript" src="./scripts/HealthMaintenance_main_TEST.js"></script>
+
+	<!-- Include Content -->
+  <script>
+  	$(function() {
+  		// Load HM.HTML and QM.html
+  		$("#divQM").load("QM.html");
+  		$("#divHM").load("HM.html");
+  	});
+
+  	// Provide time for html forms to load prior to running javascript functions
+  	setTimeout(function() {
+  		runQM();
+  		runHM();
+  	}, 10);
+  </script>
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body style="margin-bottom: 20px;">
+
+	<!-- Logo Banner -->
+	<div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <img class="navbar-logo" src="../../HtmlLibraries/deprecated/images/CMG_logo_white.png" alt="logo" width="50"/>
+        <a class="navbar-brand" href="#">Valley Medical Center, A Division of Catalyst Medical Group</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="position: fixed; margin-top: 50px;">
+  	<div class="row">
+
+  		<!-- Patient Infrormation
+		  <div id="patientInfoDiv" class="ptInfoDiv hidden">
+		  	<h3>Patient</h3>
+		    <div class="indent"><label>Name:&nbsp</label><span id="ptNameSpan"></span></div>
+		    <div class="indent"><label>DOB:&nbsp</label><span id="ptDOBSpan"></span></div>
+		    <div class="indent"><label>PCP:&nbsp</label><span id="ptPCPSpan"></span></div>
+		  </div>-->
+
+		  <!-- Main Content Div -->
+		  <div class="mainContentDiv">
+		  	<!-- Tab Titles -->
+		  	<ul class="nav nav-tabs">
+			    <li class="active"><a data-toggle="tab" href="#divQM"><h4>Quality Measures</h4></a></li>
+			    <li><a data-toggle="tab" href="#divHM"><h4>Health Maintenance</h4></a></li>
+			  </ul>
+
+			  <!-- Error Messaging Div -->
+			  <div id="errorMsgDiv" class="alert"></div>
+
+			  <!-- Tab Content Div -->
+			  <div class="tab-content">
+
+			  	<!-- Quality Measures Div -->
+			  	<div id="divQM" class="tab-pane fade in active scrollingDiv"></div>
+
+					<!-- Health Maintenance Div -->
+			  	<div id="divHM" class="tab-pane fade in scrollingDiv"></div>
+
+				</div><!-- End Tab-Content Div -->
+
+		  </div><!-- End Main Content Div -->
+
+		  <div class="hidden"><br><textarea id="debugBox" rows="15" cols="150"></textarea></div>
+
+		</div>
+	</div><!-- End Container -->
+
+	<!-- Popup Modal -->
+	<div id="QMModal" class="modal">
+
+	  <!-- Modal content -->
+	  <div class="modal-content">
+	    <div class="modal-header">
+	      <span class="close">x</span>
+	      <h2 id="QMModalHeader">Error</h2>
+	    </div>
+	    <div id="QMModalBody" class="modal-body">
+	      <p>Please contact IS at extension 6990.</p>
+	    </div>
+	    <div id="QMModalAlert" class="modal-alert"></div>
+	    <div id="QMModalFooter" class="modal-footer">
+	      <!--<h3>Modal Footer</h3>-->
+	    </div>
+	  </div>
+	</div> <!-- End Popup Modal -->
+
+</body>
+<!-- END BODY -->
+
+<!-- FOOTER -->
+<footer class="footer">
+	<hr>
+  <p>Valley Medical Center, PLLC 2016</p>
+</footer>
+
+</html>

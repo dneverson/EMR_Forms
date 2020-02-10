@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-md-5">
+        <label>Associated Problem:</label><br/>
+        <select name="referralProblem"
+                ng-model="ref.referral.problems"
+                ng-options="referral.problem for referral in ref.problemOptions | orderBy:'problem'"
+                required>
+        </select>
+    </div>
+</div>

@@ -1,0 +1,218 @@
+
+<!--
+/*=========================================================================
+* @author Derry Everson
+*
+* Work:
+** https://www.catalystmedicalgroup.com
+** deverson@valleymedicalcenter.com
+*
+* Date: 09/12/2019
+*========================================================================*/
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="minicogApp">
+<head>
+  <title>Mini-Cog</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="PRAGMA" content="NO-CACHE" />
+  <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+  <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
+  <!-- JS -->
+  <script src="../../HtmlLibraries/jquery/js/3.3.1/jquery.min.js"></script>
+  <script src="../../HtmlLibraries/angularjs/1.7.8/angular.min.js"></script>
+  <script src="../../HtmlLibraries/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../../HtmlLibraries/centricity/external_Functions.js" type="text/javascript"></script>
+  <script src="js/primaryController.js" type="text/javascript"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../HtmlLibraries/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/minicog.css">
+
+</head>
+
+<body ng-controller="minicogController">
+  <div class="container"><!-- FIRST CONTAINER START -->
+    <div class="row"><!-- FIRST ROW START -->
+      <div class="col-sm-12 center">
+        <h1 class="inline center">Mini-Cog</h1><h4 class="inline">&#8482;</h4>
+      </div>
+      <div class="col-sm-12">
+        <h3>Step 1: Three Word Registration</h3>
+        <p>Look directly at person and say, “Please listen carefully. I am going to say three words that I want you to repeat back to me now and try to remember. The words are [{{recallVersion.Q1}}, {{recallVersion.Q2}}, {{recallVersion.Q3}}]. Please say them for me now.” If the person is unable to repeat the words after three attempts, move on to Step 2 (clock drawing).</p>
+      </div>
+    </div><!-- FIRST ROW END -->
+    <div class="row"><!-- SECOND ROW START -->
+      <div class="col-sm-12">
+        <p class="textRed">Version {{recallVersion.version}}</p>
+      </div>
+      <div class="col-sm-4">
+        <h4><strong>"{{recallVersion.Q1}}"</strong></h4>
+      </div>
+      <div class="col-sm-4">
+        <h4><strong>"{{recallVersion.Q2}}"</strong></h4>
+      </div>
+      <div class="col-sm-4">
+        <h4><strong>"{{recallVersion.Q3}}"</strong></h4>
+      </div>
+    </div><!-- SECOND ROW END -->
+    <hr>
+  </div><!-- FIRST CONTAINER END -->
+
+
+
+  <div class="container"><!-- SECOND CONTAINER START -->
+    <div class="row"><!-- FIRST ROW START -->
+      <div class="col-sm-12">
+        <h3 class="inline">Step 2: Clock Drawing</h3>
+        <button type="button" class="btn btn-primary btn-xs inline btn-align" data-toggle="modal" data-target="#examplesModal">Examples</button>
+      </div>
+    </div><!-- FIRST ROW END -->
+
+    <div class="row"><!-- SECOND ROW START -->
+      <div class="col-sm-12">
+        <p>Say: “Next, I want you to draw a clock for me. First, put in all of the numbers where they go.” When that is completed, say: “Now, set the hands to 10 past 11.”</p>
+        <!-- <p>Use preprinted circle (see next page) for this exercise. Repeat instructions as needed as this is not a memory test. Move to Step 3 if the clock is not complete within three minutes.</p> -->
+        <p>Repeat instructions as needed as this is not a memory test. Move to Step 3 if the clock is not complete within three minutes.</p>
+      </div>
+      <div class="col-sm-12">
+        <div class="inline chkbx">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="2" ng-model="radio" ng-change="setClockScore(radio)">
+          <label class="form-check-label" for="inlineRadio1">Normal</label>
+        </div>
+        <div class="inline chkbx">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="1" ng-model="radio" ng-change="setClockScore(radio)">
+          <label class="form-check-label" for="inlineRadio2">Abnormal</label>
+        </div>
+        <div class="inline chkbx">
+          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="0" ng-model="radio" ng-change="setClockScore(radio)">
+          <label class="form-check-label" for="inlineRadio3">Unable / Refused</label>
+        </div>
+      </div>
+    </div><!-- SECOND ROW END -->
+    <hr>
+  </div><!-- SECOND CONTAINER END -->
+
+  <div class="container"><!-- THIRD CONTAINER START -->
+    <div class="row"><!-- FIRST ROW START -->
+      <div class="col-sm-12">
+        <h3 class="inline">Step 3: Three Word Recall</h3><p class="inline padLeft textRed">Version {{recallVersion.version}}</p>
+      </div>
+      <div class="col-sm-12">
+        <p>Ask the person to recall the three words you stated in Step 1 without cueing. Say: “What were the three words I asked you to remember?”.</p>
+      </div>
+      <div class="col-sm-12">
+        <div class="input-group" ng-mouseover="setWordScore(recallVersion,A1,A2,A3)">
+          <span class="input-group-addon"><strong>Patient’s Answers:</strong></span>
+          <input class="form-control" type="text" placeholder="First" value="" ng-model="A1" ng-change="setWordScore(recallVersion,A1,A2,A3)" ng-class="{'color-green': CA1, 'color-red': !CA1}">
+          <span class="input-group-addon input-group-separator"></span>
+          <input class="form-control" type="text" placeholder="Second" value="" ng-model="A2" ng-change="setWordScore(recallVersion,A1,A2,A3)" ng-class="{'color-green': CA2, 'color-red': !CA2}">
+          <span class="input-group-addon input-group-separator"></span>
+          <input class="form-control" type="text" placeholder="Third" value="" ng-model="A3" ng-change="setWordScore(recallVersion,A1,A2,A3)" ng-class="{'color-green': CA3, 'color-red': !CA3}">
+        </div>
+        <small class="textRed center">Note: Fields are auto filled, if the patient answer differs from above, please edit the appropriate field(s).</small>
+      </div>
+    </div><!-- FIRST ROW END -->
+    <hr>
+  </div><!-- THIRD CONTAINER END -->
+
+  <div class="container"><!-- FOURTH CONTAINER START -->
+    <div class="row"><!-- FIRST ROW START -->
+      <div class="col-sm-12">
+        <h3>Scoring</h3>
+      </div>
+      <div class="col-sm-12">
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td class="col-sm-4">
+                <p>Word Recall: <u><strong>{{scores.word}}</strong><strong ng-show="scores.word >= 0"> Points</strong></u></p>
+              </td>
+              <td class="col-sm-8">
+                <p>1 point for each word spontaneously recalled without cueing.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-sm-4">
+                <p>Clock Draw: <u><strong>{{scores.clock}}</strong><strong ng-show="scores.clock >= 0"> Points</strong></u></p>
+              </td>
+              <td class="col-sm-8">
+                <p>Normal clock = 2 points. A normal clock has all numbers placed in the correct sequence and approximately correct position (e.g., 12, 3, 6 and 9 are in anchor positions) with no missing or duplicate numbers. Hands are pointing to the 11 and 2 (11:10). Hand length is not scored. Inability or refusal to draw a clock (abnormal) = 0 points.</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="col-sm-4">
+                <p>Total Score: <u><strong>{{scores.total}}</strong><strong ng-show="scores.total >= 0"> Points</strong></u></p>
+              </td>
+              <td class="col-sm-8">
+                <p>Total score = Word Recall score + Clock Draw score.</p>
+                <p>A cut point of < 3 on the Mini-Cog™ has been validated for dementia screening, but many individuals with clinically meaningful cognitive impairment will score higher. When greater sensitivity is desired, a cut point of < 4 is recommended as it may indicate a need for further evaluation of cognitive status.</p>
+              </td>
+            </tr>
+            <!-- Comment block and refused followup checkbox -->
+            <tr ng-show="scores.total < 3">
+              <td class="col-sm-4">
+                <div class="inline chkbx">
+                  <input class="form-check-input" type="checkbox" name="inlinecheckboxOption" id="inlineCheckbox" value="1" ng-model="checkbox" ng-change="setRefuseFollowup(checkbox)">
+                  <label class="form-check-label" for="inlineCheckbox">Patient Refused Follow Up </label>
+                </div>
+              </td>
+              <td class="col-sm-8">
+                <div class="form-group">
+                  <label for="additionalComments">Additional Comments</label>
+                  <textarea class="form-control" id="additionalComments" rows="3" ng-model="comments" ng-change="setAdditionalComments(comments)""></textarea>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div><!-- FIRST ROW END -->
+    <hr>
+  </div><!-- FOURTH CONTAINER END -->
+
+  <!-- Modal -->
+  <div class="modal fade" id="examplesModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <h4 class="center">Normal Clock</h4>
+              <p>&nbsp;</p>
+              <img class="img-responsive" src="images/clock-normal.gif" alt="normal clock">
+            </div>
+            <div class="col-sm-4">
+              <h4 class="center">Abnormal Clock</h4>
+              <p class="center">(abnormal hands)</p>
+              <img class="img-responsive" src="images/clock-abnormal-hands.gif" alt="normal clock">
+            </div>
+            <div class="col-sm-4">
+              <h4 class="center">Abnormal Clock</h4>
+              <p class="center">(missing number)</p>
+              <img class="img-responsive" src="images/clock-abnormal-numbers.gif" alt="normal clock">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-12">
+        <small class="center">Mini-Cog © S. Borson. All rights reserved. Reprinted with permission of the author solely for clinical and educational purposes. May not be modified or used for commercial, marketing, or research purposes without permission of the author (soob@uw.edu).</small>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</html>

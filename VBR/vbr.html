@@ -1,0 +1,181 @@
+<!--
+/*=========================================================================
+* @author Derry Everson
+*
+* Work:
+** https://www.catalystmedicalgroup.com
+** deverson@valleymedicalcenter.com
+*
+* Date: 06/13/2019
+*========================================================================*/
+-->
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="vbrApp">
+<head>
+  <title>VBR</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="PRAGMA" content="NO-CACHE" />
+  <meta http-equiv="CACHE-CONTROL" content="NO-CACHE" />
+  <meta http-equiv="X-UA-Compatible" content="IE=8,IE=9" />
+  <!-- JS -->
+  <script src="../../HtmlLibraries/jquery/js/3.3.1/jquery.min.js"></script>
+  <script src="../../HtmlLibraries/angularjs/1.7.8/angular.min.js"></script>
+  <script src="../../HtmlLibraries/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="../../HtmlLibraries/centricity/MEL_Functions.js" type="text/javascript"></script>
+  <script src="../../HtmlLibraries/centricity/MEL_API.js" type="text/javascript"></script>
+  <script src="../../HtmlLibraries/centricity/external_Functions.js" type="text/javascript"></script>
+  <script src="../../HtmlLibraries/centricity/Search.js"></script>
+  <script src="js/primaryController.js" type="text/javascript"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="../../HtmlLibraries/bootstrap/3.4.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/vbr.css">
+
+</head>
+
+<body ng-controller="vbrController">
+  <div class="container"><!-- MAIN CONTAINER START -->
+    <div class="row"><!-- MAIN ROW START -->
+      <div class="col-sm-12">
+        <h1>Measures Review</h1>
+      </div>
+
+      <div class="col-sm-6 lcol"><!-- LEFT COLUMN START -->
+        <div class="row" ng-show="demographics"><!-- DEMOGRAPHICS TABLE START-->
+          <div class="col-sm-12">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Demographics</th>
+                  <th>Value</th>
+                  <th class="tblTitle">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-toggle="tooltip" title="{{item.tooltip}}" class="tblRow" ng-repeat="item in demographics" ng-class="{'color-green': item.stat, 'color-red': item.stat == 'Missing'}">
+                  <td><strong>{{item.desc}}</strong></td>
+                  <td class="value">{{item.value}}</td>
+                  <td class="btncol">{{item.stat}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div><!-- DEMOGRAPHICS TABLE END-->
+
+        <div class="row" ng-show="vitals"><!-- VITALS TABLE START-->
+          <div class="col-sm-12">
+            <table class="table table-inverse">
+              <thead>
+                <tr>
+                  <th>Vitals</th>
+                  <th>Value</th>
+                  <th class="tblTitle">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-toggle="tooltip" title="{{item.tooltip}}" class="tblRow" ng-mouseover="cursor=true;" ng-mouseleave="cursor=false;" ng-repeat="item in vitals" ng-class="{'color-green': item.stat == 'Done', 'color-yellow': item.edu && item.stat =='Done', 'color-grey': item.omit == 1, 'color-red': item.stat !== 'Done' && !item.omit}">
+                  <td>
+                    <strong>{{item.desc}}</strong>
+                    <!-- <div ng-show="((!item.edu) || (item.stat !== 'Done'))"><strong>{{item.desc}}</strong></div> -->
+                    <!-- <div ng-show="((item.edu) && (item.stat == 'Done'))"><strong>{{item.desc}} - {{item.edu}}</strong></div> -->
+                  </td>
+                  <td class="value">{{item.value}}</td>
+                  <td class="btncol">
+                    <div ng-show="(((item.stat == 'Missing') && (!cursor)) || (item.stat !== 'Missing' && !item.edu))">{{item.stat}}</div>
+                    <div ng-show="(((item.stat == 'Missing') && (cursor)))"><button class="btn btn-primary btn-sm" ng-click="btnOpenVitalsForm(item)" type="button"><span class="glyphicon glyphicon-plus"></span> Vitals</button></div>
+                    <div ng-show="(((item.stat == 'Done') && (item.edu)))"><button class="btn btn-warning btn-sm" ng-click="Education(item)" type="button"><span class="glyphicon glyphicon-bullhorn"></span> Education</button></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div><!-- VITALS TABLE END -->
+
+      </div><!-- LEFT COLUMN END -->
+      <div class="col-sm-6 rcol"><!-- RIGHT COLUMN START -->
+
+        <div class="row" ng-show="others"><!-- OTHERS TABLE START -->
+          <div class="col-sm-12">
+            <table class="table table-inverse">
+              <thead>
+                <tr>
+                  <th>&emsp;</th>
+                  <th>&emsp;</th>
+                  <th class="tblTitle">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-toggle="tooltip" title="{{item.tooltip}}" class="tblRow" ng-mouseover="cursor=true;" ng-mouseleave="cursor=false;" ng-repeat="item in others" ng-class="{'color-green': item.stat == 'Done', 'color-blue': item.stat !== 'Done', 'color-red': item.stat == 'Missing' || item.stat == 'Current - Advise to quit','color-yellow': item.edu && item.stat !== 'Current - Advise to quit', 'color-grey': item.omit == 1 && item.stat !== 'Done'}">
+                  <td><strong>{{item.desc}}</strong></td>
+                  <td class="btncol">
+                      <div ng-show="(item.edu)"><button class="btn btn-warning btn-sm" ng-click="Education(item)" type="button"><span class="glyphicon glyphicon-bullhorn"></span> Education</button></div>
+                  </td>
+                  <td class="btncol">
+                    <div ng-show="(((!cursor) && item.stat == 'Missing' && (item.desc !== 'Smoking Status:')) || ((item.stat.toLowerCase() !== 'yes') && (item.stat.toLowerCase() !=='no') && (item.stat !== 'Missing') && (item.desc !== 'Smoking Status:')))">{{item.stat}}</div>
+                    <div ng-show="((item.stat.toLowerCase() == 'yes') || (item.stat.toLowerCase() == 'no'))"><button class="btn btn-primary btn-sm" ng-click="btnTransitionOfCare()" type="button"><span class="glyphicon glyphicon-random"></span>&emsp;{{item.stat}}</button></div>
+                    <div ng-show="((item.desc == 'Smoking Status:'))"><button class="btn btn-default btn-sm" ng-click="btnOpenHistoriesForm(item)" type="button"><span class="glyphicon glyphicon-new-window"></span> {{item.stat}}</button></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div><!-- OTHERS TABLE END -->
+
+        <div class="row" ng-show="reviewed"><!-- REVIEWED TABLE START -->
+          <div class="col-sm-12">
+            <table class="table table-inverse">
+              <thead>
+                <tr>
+                  <th>Section</th>
+                  <th>Documented?</th>
+                  <th class="tblTitle">Reviewed?</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-toggle="tooltip" title="{{item.tooltip}}" class="tblRow" ng-mouseover="cursor=true;" ng-mouseleave="cursor=false;" ng-repeat="item in reviewed" ng-class="{'color-green': item.stat == 'Done', 'color-red': item.stat !== 'Done' && item.omit !== 1, 'color-grey': item.omit == 1 && item.stat !== 'Done'}">
+                  <td><strong>{{item.desc}}</strong></td>
+                  <td class="btncol">
+                    <div ng-show="(((item.doc == 'Missing') && (!cursor)) || item.doc !== 'Missing')">{{item.doc}}</div>
+                    <div ng-show="(((item.doc == 'Missing') && (cursor)))"><button class="btn btn-default btn-sm" ng-click="btnOpenForm(item)"  type="button"><span class="glyphicon glyphicon-new-window"></span> Open</button></div>
+                  </td>
+                  <td class="btncol">
+                    <div ng-show="(((item.rev == 'Missing') && (!cursor)) || item.rev !== 'Missing')">{{item.rev}}</div>
+                    <div ng-show="(((item.rev == 'Missing') && (cursor)))"><button class="btn btn-success btn-sm" ng-click="btnMarkReviewed(item)"  type="button"><span class="glyphicon glyphicon-check"></span> Mark</button></div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div><!-- REVIEWED TABLE END -->
+      </div><!-- RIGHT COLUMN END -->
+    </div><!-- MAIN ROW END -->
+
+    <div class="row">
+      <!-- ALERT NOTIFICATIONS -->
+      <div class="col-sm-12">
+        <div ng-class="alert.cl" ng-if="alert.vis" ng-click="alert.vis = false;" class="alert alert-dismissible fade in">
+          <strong>{{alert.ttl}}</strong> {{alert.msg}}
+        </div>
+      </div>
+
+      <!-- BUTTON REFFRENCE GUIDE -->
+      <div class="col-sm-12">
+        <div class="btnRefGroup">
+          <fieldset>
+            <legend>Button Legend</legend>
+            <button class="btn btn-primary btn-xs no-click" type="button" ng-click="btnEasterEgg(1)"><span class="glyphicon glyphicon-plus"></span> = Go to Vitals</button>
+            <button class="btn btn-warning btn-xs no-click" type="button" ng-click="btnEasterEgg(2)"><span class="glyphicon glyphicon-bullhorn"></span> = Educate Patient</button>
+            <button class="btn btn-default btn-xs no-click" type="button" ng-click="btnEasterEgg(3)"><span class="glyphicon glyphicon-new-window"></span> = Open Window</button>
+            <button class="btn btn-success btn-xs no-click" type="button" ng-click="btnEasterEgg(4)"><span class="glyphicon glyphicon-check"></span> = Mark as Reviewed</button>
+            <button class="btn btn-primary btn-xs no-click" type="button" ng-click="btnEasterEgg(5)"><span class="glyphicon glyphicon-random"></span> = Transition of Care</button>
+          </fieldset>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- MAIN CONTAINER END -->
+</body>
+
+</html>

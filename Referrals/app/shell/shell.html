@@ -1,0 +1,13 @@
+<div class="col-md-3 hidden" ng-controller="shellController as shell">
+	<h3>Patient Information</h3>
+	<div><label>Name</label><b>:</b> {{shell.patient.name}}</div>
+	<div><label>DOB</label><b>:</b> {{shell.patient.dob}}</div>
+	<div>
+		<label>Phone</label><br/><span ng-repeat="phone in shell.patient.phone" >
+		<label style="text-align: right;">{{phone.type}}</label><b>:</b> {{phone.number}}<br /></span>
+	</div>
+</div>
+
+<div class="col-md-9">
+    <div ui-view></div>
+</div>

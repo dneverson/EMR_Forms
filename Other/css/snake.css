@@ -1,0 +1,8 @@
+.center{
+  text-align:center
+}
+#snake{
+  background: white;
+  display: block;
+  margin: 0 auto;
+}

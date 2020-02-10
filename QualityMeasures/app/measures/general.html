@@ -1,0 +1,11 @@
+<div class="row">
+    <div class="col-md-3" ng-if="ref.referral.options.showProviderList">
+        <label>Preferred Provider:</label>
+        <select ng-model="ref.referral.preferredProvider">
+            <option>Soonest Available</option>
+            <option ng-repeat="provider in ref.providers | filter:{departments: ref.referral.options.department}:true | orderBy:'name'">
+                {{provider.name}}
+            </option>
+        </select>
+    </div>
+</div>

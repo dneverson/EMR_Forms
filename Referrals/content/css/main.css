@@ -1,0 +1,47 @@
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+alert{
+   -webkit-transition:all linear 1.0s;
+   transition:all linear 1.0s;
+}
+body {
+   padding-top: 50px;
+   padding-bottom: 20px;
+}
+input[type=checkbox]{
+   -webkit-appearance: none;
+   background-color: rgba(172, 212, 238, 1);
+   border: 2px solid rgba(172, 212, 238, 1);
+   padding: 1px;
+   border-radius: 3px;
+}
+label{
+   -webkit-transition:all linear 0.5s;
+   background: transparent;
+   transition:all linear 0.5s;
+   min-width: 45px;
+}
+.error{
+   border: 1px solid #cd0a0a/*{borderColorError}*/;
+   background: #fef1ec/*{bgColorError}*/ url(images/ui-bg_glass_95_fef1ec_1x400.png)/*{bgImgUrlError}*/ 50%/*{bgErrorXPos}*/ 50%/*{bgErrorYPos}*/ repeat-x/*{bgErrorRepeat}*/;
+   color: #cd0a0a/*{fcError}*/;
+   padding: 0 5px 0 5px;
+}
+footer {
+   position: fixed;
+   bottom: 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

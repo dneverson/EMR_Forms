@@ -1,0 +1,23 @@
+<h2>Referrals</h2>
+<div class="row">
+    <div class="col-md-5">
+        <label>Referral type:</label><br/>
+        <select name="referralType"
+                ng-change="ref.stateChange()"
+                ng-model="ref.referral.options"
+                ng-options="referral.department for referral in ref.referralOptions | orderBy:'department'"
+                required>
+            <option value="" disabled="disabled">-- Select a referral type --</option>
+        </select>
+    </div>
+</div>
+
+<div>&nbsp;</div>
+<div ui-view="custom"></div>
+<div>&nbsp;</div>
+
+<form name="form">
+    <div ui-view="problems"></div>
+    <div>&nbsp;</div>
+    <div ui-view="message"></div>
+</form>

@@ -1,0 +1,57 @@
+h1{
+    text-align: center;
+}
+.btncol{
+  padding: 0 0 0 8px !important;
+  vertical-align: middle !important;
+}
+.btnRefGroup{
+  float: right;
+}
+.color-blue{
+  background-color: #d9edf7;
+  border-color: #bce8f1;
+  color: #31708f;
+}
+.color-green{
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  color: #3c763d;
+}
+.color-grey{
+  background-color: #f1f1f1;
+  border-color: #eaeaea;
+  color: #989898;
+}
+.color-red{
+  background-color: #f2dede ;
+  border-color: #ebccd1 ;
+  color: #a94442 ;
+}
+.color-yellow{
+  background-color: #ffe7be;
+  border-color: #eea236;
+  color: #bf7917;
+}
+.lcol{
+  padding-right: 25px;
+}
+.no-click {
+  box-shadow:none;
+  cursor: not-allowed;
+  opacity:0.8;
+  /*pointer-events:none;*/
+}
+.rcol{
+  padding-left: 25px;
+}
+.table{
+  border-collapse: separate;
+  box-shadow: 0 0 50px #dadada;
+}
+.tblTitle{
+  padding-right: 2em !important;
+}
+.value{
+  opacity: 0.6;
+}
