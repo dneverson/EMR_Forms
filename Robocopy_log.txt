@@ -1,0 +1,31 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Friday, January 31, 2020 10:28:26 AM
+   Source : \\hygieia\IS\_IS\HtmlForms\
+     Dest : \\cps-cmgapp1\c$\Program Files\Centricity Practice Solution\jboss\standalone\deployments\cmgcentricityps.ear\CentricityPracticeWS.war\EncounterForms\HtmlForms\
+
+    Files : *.*
+	    
+Exc Files : Robocopy_log.txt
+	    Robocopy_Files.bat
+	    
+ Exc Dirs : _Ignore
+	    
+  Options : *.* /S /E /DCOPY:T /COPY:DAT /PURGE /MIR /Z /MT:8 /R:1000000 /W:5 
+
+------------------------------------------------------------------------------
+
+	    Newer     		   28198	\\hygieia\IS\_IS\HtmlForms\VBR\js\primaryController.js100%  
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :        50        49        50         0         0         0
+   Files :       118         1       117         0         0         0
+   Bytes :   35.84 m    27.5 k   35.82 m         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Friday, January 31, 2020 10:28:26 AM
+
